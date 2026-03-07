@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const sdkVersion = "0.1.0"
+const sdkVersion = "0.2.0"
 
 var retryableStatusCodes = map[int]bool{
 	429: true,

@@ -278,7 +278,7 @@ func TestKEMDecrypt(t *testing.T) {
 // ================== Signatures Tests ==================
 
 func TestSignaturesSign(t *testing.T) {
-	signature := make([]byte, 3293) // Dilithium3 signature size
+	signature := make([]byte, 3309) // ML-DSA-65 signature size (FIPS 204)
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/api/v1/signature/sign" {
 			t.Errorf("expected /api/v1/signature/sign, got %s", r.URL.Path)
@@ -306,8 +306,8 @@ func TestSignaturesSign(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if len(result.Signature) != 3293 {
-		t.Errorf("expected signature length 3293, got %d", len(result.Signature))
+	if len(result.Signature) != 3309 {
+		t.Errorf("expected signature length 3309, got %d", len(result.Signature))
 	}
 	if result.Algorithm != "Dilithium3" {
 		t.Errorf("expected algorithm Dilithium3, got %s", result.Algorithm)

@@ -283,8 +283,14 @@ result, err := client.KEM.Encrypt(ctx, input)
 
 | Algorithm | Type | Security Level |
 |-----------|------|----------------|
-| Kyber768 | KEM (Encryption) | NIST Level 3 |
-| Dilithium3 | Digital Signatures | NIST Level 3 |
+| Kyber768 (ML-KEM-768) | KEM (Encryption) | NIST Level 3 |
+| Dilithium3 (ML-DSA-65) | Digital Signatures | NIST Level 3 |
+| X-Wing (X25519 + ML-KEM-768) | Hybrid KEM | NIST Level 3 |
+| Composite ML-DSA (ECDSA P-256 + ML-DSA-65) | Hybrid Signatures | NIST Level 3 |
+
+> **Hybrid Mode** (Pro/Enterprise plans): Pass `Algorithm: "X-Wing"` for hybrid KEM or `Algorithm: "Composite-ML-DSA"` for hybrid signatures. Without the `Algorithm` field, PQC-only algorithms are used (backward-compatible).
+>
+> Hybrid mode combines PQC with classical cryptography for defense-in-depth: if a lattice cryptanalysis breakthrough weakens ML-KEM or ML-DSA, the classical component (X25519 / ECDSA) still protects your data.
 
 ## License
 
